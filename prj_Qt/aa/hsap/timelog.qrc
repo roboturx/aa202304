@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="filenew.png">images/filenew.png</file>
+        <file alias="fileopen.png">images/fileopen.png</file>
+        <file alias="filesave.png">images/filesave.png</file>
+        <file alias="filequit.png">images/filequit.png</file>
+        <file alias="editadd.png">images/editadd.png</file>
+        <file alias="editdelete.png">images/editdelete.png</file>
+        <file alias="editup.png">images/editup.png</file>
+        <file alias="editdown.png">images/editdown.png</file>
+        <file alias="editcut.png">images/editcut.png</file>
+        <file alias="editpaste.png">images/editpaste.png</file>
+        <file alias="editpromote.png">images/editpromote.png</file>
+        <file alias="editdemote.png">images/editdemote.png</file>
+        <file alias="icon.png">images/icon.png</file>
+        <file alias="0.png">images/0.png</file>
+        <file alias="1.png">images/1.png</file>
+        <file alias="2.png">images/2.png</file>
+        <file alias="3.png">images/3.png</file>
+        <file alias="4.png">images/4.png</file>
+        <file>../rsm/images/0.png</file>
+        <file>../rsm/images/1.png</file>
+        <file>../rsm/images/2.png</file>
+        <file>../rsm/images/3.png</file>
+        <file>../rsm/images/4.png</file>
+        <file>../rsm/images/editadd.png</file>
+        <file>../rsm/images/editcut.png</file>
+        <file>../rsm/images/editdelete.png</file>
+        <file>../rsm/images/editdemote.png</file>
+        <file>../rsm/images/editdown.png</file>
+        <file>../rsm/images/editpaste.png</file>
+        <file>../rsm/images/editpromote.png</file>
+        <file>../rsm/images/editup.png</file>
+        <file>../rsm/images/filenew.png</file>
+        <file>../rsm/images/fileopen.png</file>
+        <file>../rsm/images/filequit.png</file>
+        <file>../rsm/images/filesave.png</file>
+        <file>../rsm/images/icon.png</file>
+    </qresource>
+</RCC>
