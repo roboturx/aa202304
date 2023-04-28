@@ -118,9 +118,9 @@ hsap/hc_hsp_filter_wgt.h \
 hsap/hc_hsp_prxy_model.h \
 hsap/hc_hsp.h \
 hsap/hc_hspadd.h \
-hsap/hesapturu.h \
     hsap/hsp_main_tree.h \
     hsap/hsp_maintree_xmlmodel.h \
+    hsap/hsp_turu.h \
 hsap/taskitem.h
 
 SOURCES += \
@@ -135,9 +135,9 @@ hsap/hc_hsp_filter_wgt.cpp \
 hsap/hc_hsp_prxy_model.cpp \
 hsap/hc_hsp.cpp \
 hsap/hc_hspadd.cpp \
-hsap/hesapturu.cpp \
     hsap/hsp_main_tree.cpp \
     hsap/hsp_maintree_xmlmodel.cpp \
+    hsap/hsp_turu.cpp \
 hsap/taskitem.cpp \
 
 

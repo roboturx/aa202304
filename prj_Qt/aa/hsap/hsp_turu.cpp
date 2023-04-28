@@ -1,17 +1,17 @@
-#include "hsap/hesapturu.h"
+#include "hsap/hsp_turu.h"
 
-HesapTuru::HesapTuru()
+hsp_Turu::hsp_Turu()
 {
 
 }
 
-HesapTuru::HesapTuru(const QString &hs_Tur  ,
+hsp_Turu::hsp_Turu(const QString &hs_Tur  ,
                      const QColor  &hs_Color,
                      const QIcon   &hs_icon ,
                      const QString &hs_01   ,
                      const QString &hs_02   ,
                      const quint64 &hs_T_Kod,
-                     HesapTuru *parent )
+                     hsp_Turu *parent )
     : mstr_hs_Tur(hs_Tur),
     mcol_hs_Color(hs_Color),
     mico_hs_Icon(hs_icon),
@@ -25,10 +25,10 @@ HesapTuru::HesapTuru(const QString &hs_Tur  ,
         o_parent->addChild(this);
 }
 
-HesapTuru* HesapTuru::takeChild(int row)
+hsp_Turu* hsp_Turu::takeChild(int row)
 {
     // qDebug()<<"    ::Xitem takeechild";
-    HesapTuru *item = lo_children.takeAt(row);
+    hsp_Turu *item = lo_children.takeAt(row);
     Q_ASSERT(item);
     item->o_parent = 0;
     return item;
