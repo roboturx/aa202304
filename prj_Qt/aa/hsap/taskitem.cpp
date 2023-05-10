@@ -20,7 +20,7 @@ TaskItem::TaskItem(const QString &hesapAd,
           o_parent(parent)
 {
   //  qDebug()<<"    ::Xitem constrctr";
-    if (parent)
+    if (parent )
         o_parent->addChild(this);
 }
 
