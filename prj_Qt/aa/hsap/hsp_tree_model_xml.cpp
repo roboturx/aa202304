@@ -1,10 +1,10 @@
-#include "hsp_maintree_xmlmodel.h"
+#include "hsp_tree_model_xml.h"
 
 /// fields :
 /// change these for data manipulation
 ///
-/// 001- -  in taskitem.h - field's variable declarations
-/// 002- -  in taskitem.h - field variables' getters and setters
+/// 001- -  in HesapItem.h - field's variable declarations
+/// 002- -  in HesapItem.h - field variables' getters and setters
 /// 003- fields, attributes, counts, enum
 /// 004- make editable checkable etc.
 /// 005- get data
@@ -52,7 +52,7 @@ const QString MimeType = "application/vnd.qtrac.xml.task.z";
 /// make editable, checkable, drag-dropable
 /// variables for XML file
 ///
-Qt::ItemFlags hsp_mainTree_XMLmodel::flags(const QModelIndex &index) const
+Qt::ItemFlags hsp_Tree_model_XML::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags theFlags = QAbstractItemModel::flags(index);
 
@@ -90,8 +90,7 @@ Qt::ItemFlags hsp_mainTree_XMLmodel::flags(const QModelIndex &index) const
 /// data
 /// variables for XML file
 ///
-QVariant hsp_mainTree_XMLmodel::data(const QModelIndex &index,
-                                   int role) const
+QVariant hsp_Tree_model_XML::data(const QModelIndex &index, int role) const
 {
    // qDebug()<<"::Xmdl data";
     if (!rootItem || !index.isValid() || index.column() < 0 ||
@@ -99,7 +98,7 @@ QVariant hsp_mainTree_XMLmodel::data(const QModelIndex &index,
         return QVariant();
 
 
-    if (TaskItem *item = itemForIndex(index))
+    if (HesapItem *item = itemForIndex(index))
     {
 
         if (role == Qt::DisplayRole || role == Qt::EditRole)
@@ -107,7 +106,6 @@ QVariant hsp_mainTree_XMLmodel::data(const QModelIndex &index,
 
             switch (index.column()) {
             case HesapAd:
-
                 return item->hesapAd();
             case HesapAciklama:   return item->hesapAcklm();
             case Topluhesap:return item->isTopluHesap();
@@ -264,8 +262,7 @@ QVariant hsp_mainTree_XMLmodel::data(const QModelIndex &index,
 /// headers
 /// variables for XML file
 ///
-QVariant hsp_mainTree_XMLmodel::headerData(int section,
-                               Qt::Orientation orientation, int role) const
+QVariant hsp_Tree_model_XML::headerData(int section, Qt::Orientation orientation, int role) const
 {
    // qDebug()<<"::Xmdl headerdata";
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
@@ -292,8 +289,7 @@ QVariant hsp_mainTree_XMLmodel::headerData(int section,
 /// setdata
 /// variables for XML file
 ///
-bool hsp_mainTree_XMLmodel::setData(const QModelIndex &index,
-                        const QVariant &value, int role)
+bool hsp_Tree_model_XML::setData(const QModelIndex &index, const QVariant &value, int role)
 {
 //    qDebug()<<"::Xmdl setdata";
     if (!index.isValid() ) //|| index.column() != HesapAd)
@@ -301,7 +297,7 @@ bool hsp_mainTree_XMLmodel::setData(const QModelIndex &index,
         return false;
     }
 
-    if (TaskItem *item = itemForIndex(index))
+    if (HesapItem *item = itemForIndex(index))
     {
         if (role == Qt::EditRole)
         {
@@ -349,20 +345,18 @@ bool hsp_mainTree_XMLmodel::setData(const QModelIndex &index,
 /// insertrows
 /// variables for XML file
 ///
-bool hsp_mainTree_XMLmodel::insertRows(int row, int count,
-                           const QModelIndex &parent)
+bool hsp_Tree_model_XML::insertRows(int row, int count, const QModelIndex &parent)
 {
     qDebug()<<"::Xmdl insertrows";
 
     if (!rootItem)
     {
 
-        rootItem = new TaskItem("T","T",0,"T","T",0);
-        *pi_max_Hesap_ID = rootItem->hesapKod()  ;
+        rootItem = new HesapItem("T","T",0,"T","T",0);
+        *pi_max_Hesap_ID = rootItem->hesapKod();
+    }
 
- }
-
- TaskItem *parentItem = parent.isValid() ? itemForIndex(parent)
+ HesapItem *parentItem = parent.isValid() ? itemForIndex(parent)
                                             : rootItem;
     beginInsertRows(parent, row, row + count - 1);
 
@@ -373,12 +367,12 @@ bool hsp_mainTree_XMLmodel::insertRows(int row, int count,
         ++*pi_max_Hesap_ID;
 
         // yeni bir hesap oluştur
-        TaskItem *item = new TaskItem("","",0,"","",*pi_max_Hesap_ID) ;
+        HesapItem *item = new HesapItem("", "", 0, "", "", *pi_max_Hesap_ID + 10000);
 
         parentItem->insertChild(row, item);
     }
-//    qDebug() << "hsp_mainTree_XMLmodel.cpp-::insertRows(*****************"
-//                "end***************************";
+    //    qDebug() << "hsp_Tree_model_XML.cpp-::insertRows(*****************"
+    //                "end***************************";
     endInsertRows();
     return true;
 }
@@ -388,13 +382,13 @@ bool hsp_mainTree_XMLmodel::insertRows(int row, int count,
 /// changing
 /// variables for XML file
 ///
-void hsp_mainTree_XMLmodel::announceItemChanged(TaskItem *item)
+void hsp_Tree_model_XML::announceItemChanged(HesapItem *item)
 {
     qDebug()<<"::Xmdl announceitemchanged";
 
     if (item == rootItem)
         return;
-    TaskItem *parent = item->parent();
+    HesapItem *parent = item->parent();
     Q_ASSERT(parent);
     int row = parent->rowOfChild(item);
 
@@ -413,8 +407,7 @@ void hsp_mainTree_XMLmodel::announceItemChanged(TaskItem *item)
 /// read from XML
 /// variables for XML file
 ///
-void hsp_mainTree_XMLmodel::readTasks(QXmlStreamReader *reader,
-                          TaskItem *task)
+void hsp_Tree_model_XML::readTasks(QXmlStreamReader *reader, HesapItem *task)
 {
    // qDebug()<<"::Xmdl readtasks";
     //cB_hesapAds = new QComboBox{} ;
@@ -458,7 +451,7 @@ void hsp_mainTree_XMLmodel::readTasks(QXmlStreamReader *reader,
                 const QString DBFile = reader->attributes()
                         .value(DBFileAttribute).toString();
 
-                task = new TaskItem(hesapAd, hesapAcklm,
+                task = new HesapItem(hesapAd, hesapAcklm,
                                     topluHesap, hesapTuru,
                                     ustHesap, hesapKod,
                                     DBFile, task);
@@ -496,7 +489,7 @@ void hsp_mainTree_XMLmodel::readTasks(QXmlStreamReader *reader,
 /// save XML file
 /// variables for XML file
 ///
-void hsp_mainTree_XMLmodel::save(const QString &filename)
+void hsp_Tree_model_XML::save(const QString &filename)
 {
     qDebug()<<"::Xmdl save";
     if (!filename.isEmpty())
@@ -521,8 +514,7 @@ void hsp_mainTree_XMLmodel::save(const QString &filename)
 /// write to XML file
 /// variables for XML file
 ///
-void hsp_mainTree_XMLmodel::writeTaskAndChildren(QXmlStreamWriter *writer,
-                                     TaskItem *task) const
+void hsp_Tree_model_XML::writeTaskAndChildren(QXmlStreamWriter *writer, HesapItem *task) const
 {
     qDebug()<<"::Xmdl writetaskandchildren";
     if (task != rootItem) {
@@ -556,7 +548,7 @@ void hsp_mainTree_XMLmodel::writeTaskAndChildren(QXmlStreamWriter *writer,
             writer->writeEndElement(); // WHEN
         }
     }
-    foreach (TaskItem *child, task->children())
+    foreach (HesapItem *child, task->children())
         writeTaskAndChildren(writer, child);
     if (task != rootItem)
         writer->writeEndElement(); // TASK
@@ -569,62 +561,55 @@ void hsp_mainTree_XMLmodel::writeTaskAndChildren(QXmlStreamWriter *writer,
 ///
 /////////////////////////////////////////////////////////////////
 
-
-
-int hsp_mainTree_XMLmodel::rowCount(const QModelIndex &parent) const
+int hsp_Tree_model_XML::rowCount(const QModelIndex &parent) const
 {
    // qDebug()<<"::Xmdl rowcount";
     if (parent.isValid() && parent.column() != 0)
         return 0;
-    TaskItem *parentItem = itemForIndex(parent);
+    HesapItem *parentItem = itemForIndex(parent);
     return parentItem ? parentItem->childCount() : 0;
 }
 
-
-int hsp_mainTree_XMLmodel::columnCount(const QModelIndex &parent) const
+int hsp_Tree_model_XML::columnCount(const QModelIndex &parent) const
 {
    // qDebug()<<"::Xmdl columncount";
     return parent.isValid() && parent.column() != 0 ? 0 : ColumnCount;
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::index(int row, int column,
-                             const QModelIndex &parent) const
+QModelIndex hsp_Tree_model_XML::index(int row, int column, const QModelIndex &parent) const
 {
   //  qDebug()<<"::Xmdl index";
     if (!rootItem || row < 0 || column < 0 || column >= ColumnCount
             || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
-    TaskItem *parentItem = itemForIndex(parent);
+    HesapItem *parentItem = itemForIndex(parent);
     Q_ASSERT(parentItem);
-    if (TaskItem *item = parentItem->childAt(row))
+    if (HesapItem *item = parentItem->childAt(row))
         return createIndex(row, column, item);
     return QModelIndex();
 }
 
-
-TaskItem *hsp_mainTree_XMLmodel::itemForIndex(const QModelIndex &index) const
+HesapItem *hsp_Tree_model_XML::itemForIndex(const QModelIndex &index) const
 {
    // qDebug()<<"::Xmdl itemforindex";
     if (index.isValid()) {
-        if (TaskItem *item = static_cast<TaskItem*>(
+        if (HesapItem *item = static_cast<HesapItem*>(
                     index.internalPointer()))
             return item;
     }
     return rootItem;
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::parent(const QModelIndex &index) const
+QModelIndex hsp_Tree_model_XML::parent(const QModelIndex &index) const
 {
     //qDebug()<<"::Xmdl parent ";
     if (!index.isValid())
         return QModelIndex();
-    if (TaskItem *childItem = itemForIndex(index)) {
-        if (TaskItem *parentItem = childItem->parent()) {
+    if (HesapItem *childItem = itemForIndex(index)) {
+        if (HesapItem *parentItem = childItem->parent()) {
             if (parentItem == rootItem)
                 return QModelIndex();
-            if (TaskItem *grandParentItem = parentItem->parent()) {
+            if (HesapItem *grandParentItem = parentItem->parent()) {
                 int row = grandParentItem->rowOfChild(parentItem);
                 return createIndex(row, 0, parentItem);
             }
@@ -633,15 +618,12 @@ QModelIndex hsp_mainTree_XMLmodel::parent(const QModelIndex &index) const
     return QModelIndex();
 }
 
-
-
-bool hsp_mainTree_XMLmodel::removeRows(int row, int count,
-                           const QModelIndex &parent)
+bool hsp_Tree_model_XML::removeRows(int row, int count, const QModelIndex &parent)
 {
     qDebug()<<"::Xmdl removeerows";
     if (!rootItem)
         return false;
-    TaskItem *item = parent.isValid() ? itemForIndex(parent)
+    HesapItem *item = parent.isValid() ? itemForIndex(parent)
                                       : rootItem;
     beginRemoveRows(parent, row, row + count - 1);
     for (int i = 0; i < count; ++i)
@@ -650,21 +632,19 @@ bool hsp_mainTree_XMLmodel::removeRows(int row, int count,
     return true;
 }
 
-
-QStringList hsp_mainTree_XMLmodel::mimeTypes() const
+QStringList hsp_Tree_model_XML::mimeTypes() const
 {
     qDebug()<<"::Xmdl mimetypes";
     return QStringList() << MimeType;
 }
 
-
-QMimeData *hsp_mainTree_XMLmodel::mimeData(const QModelIndexList &indexes) const
+QMimeData *hsp_Tree_model_XML::mimeData(const QModelIndexList &indexes) const
 {
     qDebug()<<"::Xmdl mimedata";
     Q_ASSERT(indexes.count());
     if (indexes.count() != 1)
         return 0;
-    if (TaskItem *item = itemForIndex(indexes.at(0))) {
+    if (HesapItem *item = itemForIndex(indexes.at(0))) {
         QMimeData *mimeData = new QMimeData;
         QByteArray xmlData;
         QXmlStreamWriter writer(&xmlData);
@@ -676,11 +656,11 @@ QMimeData *hsp_mainTree_XMLmodel::mimeData(const QModelIndexList &indexes) const
     return 0;
 }
 
-
-bool hsp_mainTree_XMLmodel::dropMimeData(const QMimeData *mimeData,
-                             Qt::DropAction action, int row,
-                             int column,
-                             const QModelIndex &parent)
+bool hsp_Tree_model_XML::dropMimeData(const QMimeData *mimeData,
+                                      Qt::DropAction action,
+                                      int row,
+                                      int column,
+                                      const QModelIndex &parent)
 {
     qDebug()<<"::Xmdl dropmimedat";
     if (action == Qt::IgnoreAction)
@@ -688,7 +668,7 @@ bool hsp_mainTree_XMLmodel::dropMimeData(const QMimeData *mimeData,
     if (action != Qt::MoveAction || column > 0 ||
             !mimeData || !mimeData->hasFormat(MimeType))
         return false;
-    if (TaskItem *item = itemForIndex(parent)) {
+    if (HesapItem *item = itemForIndex(parent)) {
         emit stopTiming();
         QByteArray xmlData = qUncompress(mimeData->data(MimeType));
         QXmlStreamReader reader(xmlData);
@@ -703,8 +683,7 @@ bool hsp_mainTree_XMLmodel::dropMimeData(const QMimeData *mimeData,
     return false;
 }
 
-
-bool hsp_mainTree_XMLmodel::isChecked(const QModelIndex &index) const
+bool hsp_Tree_model_XML::isChecked(const QModelIndex &index) const
 {
     qDebug()<<"::Xmdl ischecked";
     if (!index.isValid())
@@ -712,22 +691,19 @@ bool hsp_mainTree_XMLmodel::isChecked(const QModelIndex &index) const
     return data(index, Qt::CheckStateRole).toInt() == Qt::Checked;
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::moveUp(const QModelIndex &index)
+QModelIndex hsp_Tree_model_XML::moveUp(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl moveup";
     if (!index.isValid() || index.row() <= 0)
         return index;
-    TaskItem *item = itemForIndex(index);
+    HesapItem *item = itemForIndex(index);
     Q_ASSERT(item);
-    TaskItem *parent = item->parent();
+    HesapItem *parent = item->parent();
     Q_ASSERT(parent);
     return moveItem(parent, index.row(), index.row() - 1);
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::moveItem(TaskItem *parent, int oldRow,
-                                int newRow)
+QModelIndex hsp_Tree_model_XML::moveItem(HesapItem *parent, int oldRow, int newRow)
 {
     qDebug()<<"::Xmdl moveitem";
     Q_ASSERT(0 <= oldRow && oldRow < parent->childCount() &&
@@ -741,48 +717,41 @@ QModelIndex hsp_mainTree_XMLmodel::moveItem(TaskItem *parent, int oldRow,
     return newIndex;
 }
 /////////////////////////////////////////////////////////////////
-/// \brief hsp_mainTree_XMLmodel::hTurColor
+/// \brief hsp_Tree_model_XML::hTurColor
 ///
 /// hc_main - 445 signal i,le yollanan qcolor
 /// hesap turu rengi olarak kullanılacak
 ///
-void hsp_mainTree_XMLmodel::hTurColor(QColor color)
+void hsp_Tree_model_XML::hTurColor(QColor color)
 {
     qDebug()<<"------------htur siggggggnaaaaaaaaaaaal    " << color;
 }
 
-QList<TaskItem *> hsp_mainTree_XMLmodel::getListXML() const
+QList<HesapItem *> hsp_Tree_model_XML::getListXML() const
 {
-    foreach (TaskItem* item, listXML)
-    {
-
-        qDebug() <<"----------------"<< item->hesapAd ();
-    }
     return listXML;
 }
 
-void hsp_mainTree_XMLmodel::setListXML(QList<TaskItem*> newListXML)
+void hsp_Tree_model_XML::setListXML(HesapItem *newXMLItem)
 {
-    listXML = newListXML;
+    listXML << newXMLItem;
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::moveDown(const QModelIndex &index)
+QModelIndex hsp_Tree_model_XML::moveDown(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl moveedown";
     if (!index.isValid())
         return index;
-    TaskItem *item = itemForIndex(index);
+    HesapItem *item = itemForIndex(index);
     Q_ASSERT(item);
-    TaskItem *parent = item->parent();
+    HesapItem *parent = item->parent();
     int newRow = index.row() + 1;
     if (!parent || parent->childCount() <= newRow)
         return index;
     return moveItem(parent, index.row(), newRow);
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::cut(const QModelIndex &index)
+QModelIndex hsp_Tree_model_XML::cut(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl cut";
     if (!index.isValid())
@@ -790,12 +759,12 @@ QModelIndex hsp_mainTree_XMLmodel::cut(const QModelIndex &index)
     delete cutItem;
     cutItem = itemForIndex(index);
     Q_ASSERT(cutItem);
-    TaskItem *parent = cutItem->parent();
+    HesapItem *parent = cutItem->parent();
     Q_ASSERT(parent);
     int row = parent->rowOfChild(cutItem);
     Q_ASSERT(row == index.row());
     beginRemoveRows(index.parent(), row, row);
-    TaskItem *child = parent->takeChild(row);
+    HesapItem *child = parent->takeChild(row);
     endRemoveRows();
     Q_ASSERT(child == cutItem);
     child = 0; // Silence compiler unused variable warning
@@ -805,49 +774,47 @@ QModelIndex hsp_mainTree_XMLmodel::cut(const QModelIndex &index)
         return createIndex(row, 0, parent->childAt(row));
     }
     if (parent != rootItem) {
-        TaskItem *grandParent = parent->parent();
+        HesapItem *grandParent = parent->parent();
         Q_ASSERT(grandParent);
         return createIndex(grandParent->rowOfChild(parent), 0, parent);
     }
     return QModelIndex();
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::paste(const QModelIndex &index)
+QModelIndex hsp_Tree_model_XML::paste(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl paste";
     if (!index.isValid() || !cutItem)
         return index;
-    TaskItem *sibling = itemForIndex(index);
+    HesapItem *sibling = itemForIndex(index);
     Q_ASSERT(sibling);
-    TaskItem *parent = sibling->parent();
+    HesapItem *parent = sibling->parent();
     Q_ASSERT(parent);
     int row = parent->rowOfChild(sibling) + 1;
     beginInsertRows(index.parent(), row, row);
     parent->insertChild(row, cutItem);
-    TaskItem *child = cutItem;
+    HesapItem *child = cutItem;
     cutItem = 0;
     endInsertRows();
     return createIndex(row, 0, child);
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::promote(const QModelIndex &index)
+QModelIndex hsp_Tree_model_XML::promote(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl prğmğte";
     if (!index.isValid())
         return index;
-    TaskItem *item = itemForIndex(index);
+    HesapItem *item = itemForIndex(index);
     Q_ASSERT(item);
-    TaskItem *parent = item->parent();
+    HesapItem *parent = item->parent();
     Q_ASSERT(parent);
     if (parent == rootItem)
         return index; // Already a top-level item
 
     int row = parent->rowOfChild(item);
-    TaskItem *child = parent->takeChild(row);
+    HesapItem *child = parent->takeChild(row);
     Q_ASSERT(child == item);
-    TaskItem *grandParent = parent->parent();
+    HesapItem *grandParent = parent->parent();
     Q_ASSERT(grandParent);
     row = grandParent->rowOfChild(parent) + 1;
     grandParent->insertChild(row, child);
@@ -856,22 +823,21 @@ QModelIndex hsp_mainTree_XMLmodel::promote(const QModelIndex &index)
     return newIndex;
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::demote(const QModelIndex &index)
+QModelIndex hsp_Tree_model_XML::demote(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl demote";
     if (!index.isValid())
         return index;
-    TaskItem *item = itemForIndex(index);
+    HesapItem *item = itemForIndex(index);
     Q_ASSERT(item);
-    TaskItem *parent = item->parent();
+    HesapItem *parent = item->parent();
     Q_ASSERT(parent);
     int row = parent->rowOfChild(item);
     if (row == 0)
         return index; // No preceding sibling to move this under
-    TaskItem *child = parent->takeChild(row);
+    HesapItem *child = parent->takeChild(row);
     Q_ASSERT(child == item);
-    TaskItem *sibling = parent->childAt(row - 1);
+    HesapItem *sibling = parent->childAt(row - 1);
     Q_ASSERT(sibling);
     sibling->addChild(child);
     QModelIndex newIndex = createIndex(sibling->childCount() - 1, 0,
@@ -880,8 +846,7 @@ QModelIndex hsp_mainTree_XMLmodel::demote(const QModelIndex &index)
     return newIndex;
 }
 
-
-void hsp_mainTree_XMLmodel::setTimedItem(const QModelIndex &index)
+void hsp_Tree_model_XML::setTimedItem(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl settimeditem";
     clearTimedItem();
@@ -890,28 +855,23 @@ void hsp_mainTree_XMLmodel::setTimedItem(const QModelIndex &index)
     announceItemChanged(timedItem);
 }
 
-
-void hsp_mainTree_XMLmodel::clearTimedItem()
+void hsp_Tree_model_XML::clearTimedItem()
 {
     qDebug()<<"::Xmdl cleartimeditem";
     if (timedItem) {
-        TaskItem *item = timedItem;
+        HesapItem *item = timedItem;
         timedItem = 0;
         announceItemChanged(item);
     }
 }
 
-
-bool hsp_mainTree_XMLmodel::isTimedItem(const QModelIndex &index)
+bool hsp_Tree_model_XML::isTimedItem(const QModelIndex &index)
 {
     qDebug()<<"::Xmdl istimeedata";
     return timedItem && itemForIndex(index) == timedItem;
 }
 
-
-
-void hsp_mainTree_XMLmodel::addDateTimeToTimedItem(const QDateTime &start,
-                                       const QDateTime &end)
+void hsp_Tree_model_XML::addDateTimeToTimedItem(const QDateTime &start, const QDateTime &end)
 {
     qDebug()<<"::Xmdl adddatetime";
     if (timedItem) {
@@ -920,8 +880,7 @@ void hsp_mainTree_XMLmodel::addDateTimeToTimedItem(const QDateTime &start,
     }
 }
 
-
-void hsp_mainTree_XMLmodel::setIconForTimedItem(const QIcon &icon)
+void hsp_Tree_model_XML::setIconForTimedItem(const QIcon &icon)
 {
     qDebug()<<"::Xmdl seticonfor ";
     m_icon = icon;
@@ -929,8 +888,7 @@ void hsp_mainTree_XMLmodel::setIconForTimedItem(const QIcon &icon)
         announceItemChanged(timedItem);
 }
 
-
-void hsp_mainTree_XMLmodel::incrementEndTimeForTimedItem(int msec)
+void hsp_Tree_model_XML::incrementEndTimeForTimedItem(int msec)
 {
     qDebug()<<"::Xmdl incrementendtime";
     if (timedItem) {
@@ -939,8 +897,7 @@ void hsp_mainTree_XMLmodel::incrementEndTimeForTimedItem(int msec)
     }
 }
 
-
-void hsp_mainTree_XMLmodel::clear()
+void hsp_Tree_model_XML::clear()
 {
     qDebug()<<"::Xmdl clear";
     delete rootItem;
@@ -953,8 +910,7 @@ void hsp_mainTree_XMLmodel::clear()
     endResetModel();   //added for Qt5
 }
 
-
-void hsp_mainTree_XMLmodel::load(const QString &filename)
+void hsp_Tree_model_XML::load(const QString &filename)
 {
     qDebug()<<"::Xmdl load";
 
@@ -967,8 +923,8 @@ void hsp_mainTree_XMLmodel::load(const QString &filename)
         throw AQP::Error(file.errorString());
 
     clear();
-    qDebug () << "hsp_mainTree_XMLmodel::load     new root item";
-    rootItem = new TaskItem("ROO","ROO",0,"ROO","ROOT",0);
+    qDebug() << "hsp_Tree_model_XML::load     new root item";
+    rootItem = new HesapItem("ROO","ROO",0,"ROO","ROOT",0);
 
 
 
@@ -980,8 +936,7 @@ void hsp_mainTree_XMLmodel::load(const QString &filename)
     endResetModel();
 }
 
-
-QStringList hsp_mainTree_XMLmodel::pathForIndex(const QModelIndex &index) const
+QStringList hsp_Tree_model_XML::pathForIndex(const QModelIndex &index) const
 {
     //qDebug()<<"::Xmdl pathforindex ";
     QStringList path;
@@ -993,16 +948,14 @@ QStringList hsp_mainTree_XMLmodel::pathForIndex(const QModelIndex &index) const
     return path;
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::indexForPath(const QStringList &path) const
+QModelIndex hsp_Tree_model_XML::indexForPath(const QStringList &path) const
 {
     //qDebug()<<"::Xmdl indexforpath";
     return indexForPath(QModelIndex(), path);
 }
 
-
-QModelIndex hsp_mainTree_XMLmodel::indexForPath(const QModelIndex &parent,
-                                    const QStringList &path) const
+QModelIndex hsp_Tree_model_XML::indexForPath(const QModelIndex &parent,
+                                             const QStringList &path) const
 {
     //qDebug()<<"::Xmdl indexforpath xxx";
     if (path.isEmpty())

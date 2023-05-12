@@ -1,23 +1,21 @@
-#include "hc_hspadd.h"
+#include "hsp_add.h"
 
-hC_hspAdd::hC_hspAdd(QWidget *parent)
-    : QMainWindow {parent}
+hsp_Add::hsp_Add(QWidget *parent)
+    : QMainWindow{parent}
 {
-
-    qDebug()<<"-----------    ::hChsp NEWWWWWW Add";
+    qDebug() << "-----------    ::hChsp NEWWWWWW Add";
 
     mainwdgt = new QWidget(this);
-    setCentralWidget (mainwdgt);
+    setCentralWidget(mainwdgt);
 
-    yeniItem = new TaskItem;
+    yeniItem = new HesapItem;
 
     QGridLayout *lyt = new QGridLayout(mainwdgt);
     mainwdgt->setLayout(lyt);
 
     QPushButton* pb_ekle = new QPushButton("Yeni Hesap Ekle");
-    QPushButton* pb_kaydet = new QPushButton("Kaydet");
-    QPushButton* pb_Vazgeç = new QPushButton("Vazgeç");
-
+    QPushButton *pb_kaydet = new QPushButton("Kaydet");
+    QPushButton *pb_Vazgeç = new QPushButton("Vazgeç");
 
     QLabel* a1 = new QLabel("Hesap Adı   : ");
     QLabel* a2 = new QLabel("Açıklama    : ");
@@ -60,24 +58,16 @@ hC_hspAdd::hC_hspAdd(QWidget *parent)
     lyt->addWidget (pb_ekle,       6, 5, 1, 1);
     lyt->addWidget (pb_Vazgeç,     7, 5, 1, 1);
 
-    connect(le_ad        , &QLineEdit::editingFinished, this, &hC_hspAdd::yaz );
-    connect(le_acklama   , &QLineEdit::editingFinished, this, &hC_hspAdd::yaz );
-    connect(cb_topluHesap, &QComboBox::currentTextChanged, this, &hC_hspAdd::yaz );
-    connect(cb_hesapTuru , &QComboBox::currentTextChanged, this, &hC_hspAdd::yaz );
-    connect(cb_ustHesap  , &QComboBox::currentTextChanged, this, &hC_hspAdd::yaz );
+    connect(le_ad, &QLineEdit::editingFinished, this, &hsp_Add::yaz);
+    connect(le_acklama, &QLineEdit::editingFinished, this, &hsp_Add::yaz);
+    connect(cb_topluHesap, &QComboBox::currentTextChanged, this, &hsp_Add::yaz);
+    connect(cb_hesapTuru, &QComboBox::currentTextChanged, this, &hsp_Add::yaz);
+    connect(cb_ustHesap, &QComboBox::currentTextChanged, this, &hsp_Add::yaz);
 }
 
+hsp_Add::~hsp_Add() {}
 
-
-
-
-hC_hspAdd::~hC_hspAdd()
-{
-
-}
-
-
-void hC_hspAdd::yaz()
+void hsp_Add::yaz()
 {
 
     yeniItem->setHesapAd (le_ad->text ());
@@ -85,9 +75,7 @@ void hC_hspAdd::yaz()
     if (cb_topluHesap->currentIndex () == 0)
     {
         yeniItem->setTopluHesap (0);
-    }
-    else
-    {
+    } else {
         yeniItem->setTopluHesap (1);
     }
 
@@ -95,8 +83,3 @@ void hC_hspAdd::yaz()
     yeniItem->setUstHesap (cb_ustHesap->currentText ());
     yeniItem->setDBFile ("xxx");
 }
-
-
-
-
-

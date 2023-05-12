@@ -123,7 +123,7 @@ void MainWindow::createDockWindows()
 
     dock = new QDockWidget(tr("Hesaplar"), this);
 
-    hesapTree = new hsp_Main_Tree(dock);
+    hesapTree = new hsp_Tree_view(dock);
 
     helpTree = new hC_helpTree(this);
 
@@ -131,15 +131,10 @@ void MainWindow::createDockWindows()
     addDockWidget(Qt::LeftDockWidgetArea, dock);
     viewMenu->addAction(dock->toggleViewAction());
 
-
-
-    connect(hesapTree,
-            &hsp_Main_Tree::sgnHesap,
-            this,
-            &MainWindow::w_Tabs);
+    connect(hesapTree, &hsp_Tree_view::sgnHesap, this, &MainWindow::w_Tabs);
 }
 
-void MainWindow::w_Tabs(TaskItem *hesapItem)
+void MainWindow::w_Tabs(HesapItem *hesapItem)
 {
     mw_currentHesapItem = hesapItem;
     createTabs();

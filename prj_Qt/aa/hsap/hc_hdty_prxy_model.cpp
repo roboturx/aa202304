@@ -1,8 +1,5 @@
-
 #include "hsap/hc_hdty_prxy_model.h"
-
 #include <QtWidgets>
-
 
 //! [0]
 hc_hDty_PRXYModel::hc_hDty_PRXYModel(QObject *parent)

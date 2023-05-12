@@ -31,7 +31,6 @@ public:
     /// variables for XML file
     ///
 
-
     QString hesapAd() const { return f_ms_hesapAd; }
     void setHesapAd(const QString &hesapAd) { f_ms_hesapAd = hesapAd; }
 
@@ -83,35 +82,39 @@ public:
     void insertChild(int row, HesapItem *item)
     {
         item->o_parent = this;
-        lo_children.insert(row, item); }
+        lo_children.insert(row, item);
+    }
     void addChild(HesapItem *item)
     {
         item->o_parent = this;
-        lo_children << item; }
+        lo_children << item;
+    }
     void swapChildren(int oldRow, int newRow)
         //  qt5      { m_children.swap(oldRow, newRow); }
-        { lo_children.swapItemsAt (oldRow, newRow); }
-        HesapItem *takeChild(int row);
+    {
+        lo_children.swapItemsAt(oldRow, newRow);
+    }
+    HesapItem *takeChild(int row);
 
-    private:
-        int minutesForTask(bool onlyForToday) const;
+private:
+    int minutesForTask(bool onlyForToday) const;
 
-        /// XML:001
-        /// define
-        /// variables for XML file
-        ///
+    /// XML:001
+    /// define
+    /// variables for XML file
+    ///
 
-        QString f_ms_hesapAd;
-        QString f_ms_hesapAcklm;
-        bool f_mb_topluHesap;
-        QString f_ms_hesapTuru;
-        QString f_ms_ustHesap;
-        quint64 f_mi_hesapKod;
-        QString f_ms_DBFile;
-        QList<QPair<QDateTime, QDateTime> > m_dateTimes;
+    QString f_ms_hesapAd;
+    QString f_ms_hesapAcklm;
+    bool f_mb_topluHesap;
+    QString f_ms_hesapTuru;
+    QString f_ms_ustHesap;
+    quint64 f_mi_hesapKod;
+    QString f_ms_DBFile;
+    QList<QPair<QDateTime, QDateTime> > m_dateTimes;
 
-        HesapItem *o_parent;
-        QList<HesapItem *> lo_children;
+    HesapItem *o_parent;
+    QList<HesapItem *> lo_children;
 };
 
 #endif // HesapItem_HPP

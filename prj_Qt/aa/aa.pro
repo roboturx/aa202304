@@ -114,14 +114,13 @@ hsap/cw_dlg_options.cpp \
 hsap/hc_hdty_filter_wgt.h \
 hsap/hc_hdty_prxy_model.h \
 hsap/hc_hdty.h \
-hsap/hc_hsp_filter_wgt.h \
-hsap/hc_hsp_prxy_model.h \
-hsap/hc_hsp.h \
-hsap/hc_hspadd.h \
-    hsap/hsp_main_tree.h \
-    hsap/hsp_maintree_xmlmodel.h \
-    hsap/hsp_turu.h \
-hsap/taskitem.h
+    hsap/hsp_add.h \
+    hsap/hsp_cb_turu.h \
+    hsap/hsp_filter_wgt.h \
+    hsap/hsp_prxy_model.h \
+    hsap/hsp_tree_model_xml.h \
+    hsap/hsp_tree_view.h \
+hsap/hesapitem.h
 
 SOURCES += \
 hsap/cm_dlg_cb_htur.cpp \
@@ -131,14 +130,13 @@ hsap/cw_dlg_options.cpp \
 hsap/hc_hdty_filter_wgt.cpp \
 hsap/hc_hdty_prxy_model.cpp \
 hsap/hc_hdty.cpp \
-hsap/hc_hsp_filter_wgt.cpp \
-hsap/hc_hsp_prxy_model.cpp \
-hsap/hc_hsp.cpp \
-hsap/hc_hspadd.cpp \
-    hsap/hsp_main_tree.cpp \
-    hsap/hsp_maintree_xmlmodel.cpp \
-    hsap/hsp_turu.cpp \
-hsap/taskitem.cpp \
+    hsap/hsp_add.cpp \
+    hsap/hsp_cb_turu.cpp \
+    hsap/hsp_filter_wgt.cpp \
+    hsap/hsp_prxy_model.cpp \
+    hsap/hsp_tree_model_xml.cpp \
+    hsap/hsp_tree_view.cpp \
+hsap/hesapitem.cpp
 
 
 
@@ -228,5 +226,12 @@ DISTFILES += \ libs/mime.types
    # hesap/main/images/filesave.png \
     # hesap/main/images/icon.png
 
+HEADERS += \
+    hsap/dlg/dlg_date.h \
+    hsap/hsp_list.h
+
+SOURCES += \
+    hsap/dlg/dlg_date.cpp \
+    hsap/hsp_list.cpp
 
 

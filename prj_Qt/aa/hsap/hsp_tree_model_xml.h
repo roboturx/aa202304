@@ -1,29 +1,34 @@
-#ifndef hsp_mainTree_XMLmodel_H
-#define hsp_mainTree_XMLmodel_H
+#ifndef hsp_Tree_model_XML_H
+#define hsp_Tree_model_XML_H
 /*
     Copyright (c) 2009-10 Qtrac Ltd. All rights reserved.
 */
 
-#include "libs/globals.h"
-#include "hsap/taskitem.h"
 #include "hsap/cm_dlg_cb_htur.h"
-
+#include "hsap/hesapitem.h"
+#include "libs/globals.h"
 
 class QMimeData;
 
-class hsp_mainTree_XMLmodel : public QAbstractItemModel
+class hsp_Tree_model_XML : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
-    explicit hsp_mainTree_XMLmodel(QObject *parent=0)
-        : QAbstractItemModel(parent), timedItem(0), rootItem(0),
-          cutItem(0)
+    explicit hsp_Tree_model_XML(QObject *parent = 0)
+        : QAbstractItemModel(parent)
+        , timedItem(0)
+        , rootItem(0)
+        , cutItem(0)
     {
          pi_max_Hesap_ID = new quint64{};
         *pi_max_Hesap_ID = 0;
     }
-    ~hsp_mainTree_XMLmodel() { delete rootItem; delete cutItem; }
+    ~hsp_Tree_model_XML()
+    {
+        delete rootItem;
+        delete cutItem;
+    }
 
     quint64* pi_max_Hesap_ID; // for XML file rowid
     QComboBox* cB_hesapAds;   // for hesap ad
@@ -91,32 +96,32 @@ public:
     QStringList pathForIndex(const QModelIndex &index) const;
     QModelIndex indexForPath(const QStringList &path) const;
 
-    void setListXML(QList<TaskItem *> newListXML);
-    QList<TaskItem *> getListXML() const;
-
+    // hesapları listeye at
+    void setListXML(HesapItem *newXMLItem);
+    QList<HesapItem *> getListXML() const;
+    QList<HesapItem *> listXML;
 signals:
     void stopTiming();
 
 private:
-    TaskItem *itemForIndex(const QModelIndex &index) const;
-    void readTasks(QXmlStreamReader *reader, TaskItem *task);
+    HesapItem *itemForIndex(const QModelIndex &index) const;
+    void readTasks(QXmlStreamReader *reader, HesapItem *task);
     void writeTaskAndChildren(QXmlStreamWriter *writer,
-                              TaskItem *task) const;
-    void announceItemChanged(TaskItem *item);
+                              HesapItem *task) const;
+    void announceItemChanged(HesapItem *item);
     QModelIndex indexForPath(const QModelIndex &parent,
                              const QStringList &path) const;
-    QModelIndex moveItem(TaskItem *parent, int oldRow, int newRow);
+    QModelIndex moveItem(HesapItem *parent, int oldRow, int newRow);
 
     QString m_filename;
     QIcon   m_icon;
-    TaskItem *timedItem;
-    TaskItem *rootItem;
-    TaskItem *cutItem;
-    QList<TaskItem*> listXML;
+    HesapItem *timedItem;
+    HesapItem *rootItem;
+    HesapItem *cutItem;
 
 public slots:
     void hTurColor(QColor color);
 
 
 };
-#endif // hsp_mainTree_XMLmodel_H
+#endif // hsp_Tree_model_XML_H

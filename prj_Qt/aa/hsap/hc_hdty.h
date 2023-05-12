@@ -7,7 +7,7 @@
 //#include "hc_hsp.h"
 //#include "cls_dlgt_combobox.h"
 #include "hsap/hc_hdty_prxy_model.h"
-#include "hsap/taskitem.h"
+#include "hsap/hesapitem.h"
 namespace nSHsp
 {
 class hC_hDTY;
@@ -27,7 +27,7 @@ public:
 
 //    hC_hsp* win_hC_hsp;
 
-    TaskItem* hc_hsp_currentHesapItem{};
+    HesapItem* hc_hsp_currentHesapItem{};
     qint64  *SGNDhesapKod ;
     QString *SGNDhesapAd  ;
 
@@ -67,7 +67,7 @@ protected:
 
 public slots:
     //connect selectionmodel change
-    void slt_hesapChanged(TaskItem* currHspItem);
+    void slt_hesapChanged(HesapItem* currHspItem);
 };
 
 #endif // hC_HSPDTY_H

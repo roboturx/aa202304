@@ -3,7 +3,7 @@
 
 
 #include "libs/globals.h"
-#include "main/mainwindow.h"
+
 
 QString GLB_yetki = "İlk" ;
 void myMessageOutput(QtMsgType type,

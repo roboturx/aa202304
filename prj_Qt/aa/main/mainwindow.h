@@ -1,15 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
 #include "adrs/clsn.h"
+#include "adrs/frm.h"
 #include "hsap/hc_hdty.h"
+#include "hsap/hesapitem.h"
+#include "hsap/hsp_tree_view.h"
+#include "libs/globals.h"
 #include "libs/hc_helptree.h"
 #include "main/dbase.h"
-#include "adrs/frm.h"
-#include "libs/globals.h"
-#include "hsap/hsp_main_tree.h"
-#include "hsap/taskitem.h"
 
 //    QT_BEGIN_NAMESPACE
 //    class QAction;
@@ -31,10 +30,10 @@ public:
     hC_CLSN *clsn;
     hC_FRM  *firma ;
     hC_hDTY *hspdty;
-    hsp_Main_Tree *hesapTree{};
+    hsp_Tree_view *hesapTree{};
     hC_helpTree *helpTree{};
 
-    TaskItem* mw_currentHesapItem{};
+    HesapItem *mw_currentHesapItem{};
     quint64 mw_currentHesapKod{};
 
     QTabWidget *w_TABs{};
@@ -47,7 +46,7 @@ public:
 
 
 signals:
-    void sgnMwHsp(TaskItem* hCTreeHsp );
+    void sgnMwHsp(HesapItem *hCTreeHsp);
 
 private slots:
     void print();
@@ -55,7 +54,7 @@ private slots:
 
     // w tabs hchsptree deki hesaba göre oluşur
     // hesapitem connect ile geliyor
-    void w_Tabs(TaskItem *hesapItem);
+    void w_Tabs(HesapItem *hesapItem);
     void setColor();
     void setInteger();
 

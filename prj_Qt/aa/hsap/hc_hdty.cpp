@@ -1,4 +1,6 @@
 #include "hsap/hc_hdty.h"
+#include "hsap/cm_dlg_cb_htur.h"
+#include "hsap/dlg/dlg_date.h"
 
 //#include "uniqueproxymodel.h"
 
@@ -17,9 +19,9 @@ hC_hDTY::hC_hDTY() : hC_tBcreator ()
 
     /// setvalue  field no, dbf değişkeni, dbfTYPE, view header, viewda görünür
 
-    tb_flds->setValue ( 0, "f_hspdty_ID"      , "INTEGER", "hspdty_ID"/*,"0"*/ ) ;
+    tb_flds->setValue(0, "f_hspdty_ID", "INTEGER", "hspdty_ID", "0");
     // hesaplar ile hesap detay arası key
-    tb_flds->setValue ( 1, "f_hspdty_hspID"   , "INTEGER", "hspdty_HesapID"/*,"0"*/) ;
+    tb_flds->setValue(1, "f_hspdty_hspID", "INTEGER", "hspdty_HesapID", "0");
     tb_flds->setValue ( 2, "f_hspdty_tarih"   , "TEXT"   , "Tarih" );
     tb_flds->setValue ( 3, "f_hspdty_no"      , "TEXT"   , "Kayıt No" );
     tb_flds->setValue ( 4, "f_hspdty_aciklama", "TEXT"   , "Açıklama");
@@ -153,9 +155,11 @@ void hC_hDTY::tbui()
 
     QSplitter *splitter = new QSplitter(this);
     splitter->setMinimumWidth(600);
-  //  splitter->addWidget(win_hC_hsp);
+
     splitter->addWidget(tb_view);
-    splitter->setOrientation (Qt::Vertical);
+    //splitter->addWidget(win_hC_hsp);
+
+    splitter->setOrientation(Qt::Horizontal);
 
     auto *win_grid = new QGridLayout(this);
     win_grid->addWidget (splitter  , 0, 0, 1, 1);
@@ -171,12 +175,13 @@ void hC_hDTY::tbkntrl()
 {
     qDebug() << "   0130 hspdty::tbkntrl ---- begin";
 
-//    cls_dlgt_ComboBox *cb = new cls_dlgt_ComboBox();
+    dlg_Date *clndr = new dlg_Date;
+    cm_dlG_cb_hTur *cb = new cm_dlG_cb_hTur();
 
-  //  tb_view->table->setItemDelegateForColumn(5, cb );
-     //////////////// filtering
+    tb_view->table->setItemDelegateForColumn(2, clndr);
+    tb_view->table->setItemDelegateForColumn(5, cb);
+    //////////////// filtering
     proxyModel1 = new hc_hDty_PRXYModel  (this);
- //   qDebug() << "1";
     // setting proxymodel1 to view
     proxyModel1->setSourceModel (tb_model);
 
@@ -184,25 +189,12 @@ void hC_hDTY::tbkntrl()
     for (int i = 0; i < proxyModel1->columnCount(); ++i)
         tb_view->table->resizeColumnToContents(i);
 
-
     // sorting proxy model1
     //tb_view->table->setSortingEnabled (true);
 
-//proxyModel->sort(0, Qt::AscendingOrder);
-//qDebug() << "13"
-//         << QString::number(hc_hsp_currentHesapItem->hesapKod ());
-//     // filtering proxy model1
-//QRegularExpression arananIfade(QString::number(hc_hsp_currentHesapItem->hesapKod ()));/*"[0-9]");*/
-////QRegularExpressionMatch match = arananIfade.match (hc_hsp_currentHesapItem->hesapKod ());
+    //proxyModel->sort(0, Qt::AscendingOrder);
 
-//qint64 xxx = hc_hsp_currentHesapItem->hesapKod ();
-//QString xx = QString::number (xxx);
-//proxyModel->setFilterRegularExpression(arananIfade);
-//qDebug() << "131";
-//proxyModel->setFilterKeyColumn(1);
-
-qDebug() << "14";
-     //////////////// filtering end
+    //////////////// filtering end
     tb_view->table->setFocus();
 
     // pB 001 yeni ekle
@@ -386,7 +378,7 @@ void hC_hDTY::closeEvent(QCloseEvent *)
    qDebug() << "hspdty:: close ()";
 }
 
-void hC_hDTY::slt_hesapChanged(TaskItem *currHspItem)
+void hC_hDTY::slt_hesapChanged(HesapItem *currHspItem)
 {
     /// hesap değiştiğinde filtre değişsin
     qDebug() << "   0150 hC_hDTY::slt_hesapChanged ";

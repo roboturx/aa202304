@@ -1,5 +1,5 @@
-#ifndef HC_HSP_FILTER_WGT_H
-#define HC_HSP_FILTER_WGT_H
+#ifndef HSP_FILTER_WGT_H
+#define HSP_FILTER_WGT_H
 
 #include <QLineEdit>
 
@@ -10,7 +10,7 @@
     class QActionGroup;
     QT_END_NAMESPACE
 
-    class hc_hsp_filter_wgt : public QLineEdit
+    class hsp_filter_wgt : public QLineEdit
     {
         Q_OBJECT
         Q_PROPERTY(Qt::CaseSensitivity caseSensitivity READ caseSensitivity
@@ -18,7 +18,7 @@
         Q_PROPERTY(PatternSyntax patternSyntax READ patternSyntax
                                                WRITE setPatternSyntax)
     public:
-        explicit hc_hsp_filter_wgt(QWidget *parent = nullptr);
+        explicit hsp_filter_wgt(QWidget *parent = nullptr);
 
         Qt::CaseSensitivity caseSensitivity() const;
         void setCaseSensitivity(Qt::CaseSensitivity);
@@ -41,4 +41,4 @@
         QActionGroup *m_patternGroup;
     };
 
-#endif // HC_HSP_FILTER_WGT_H
+#endif // HSP_FILTER_WGT_H

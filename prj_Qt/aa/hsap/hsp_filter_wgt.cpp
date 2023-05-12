@@ -1,8 +1,6 @@
-#include "hc_hsp_filter_wgt.h"
+#include "hsp_filter_wgt.h"
 
-
-
-///#include "hc_hsp_filter_wgt.h"
+///#include "hsp_filter_wgt.h"
 
 #include <QIcon>
 #include <QPixmap>
@@ -12,19 +10,18 @@
 #include <QToolButton>
 #include <QWidgetAction>
 
-hc_hsp_filter_wgt::hc_hsp_filter_wgt(QWidget *parent)
+hsp_filter_wgt::hsp_filter_wgt(QWidget *parent)
     : QLineEdit(parent)
     , m_patternGroup(new QActionGroup(this))
 {
     setClearButtonEnabled(true);
-    connect(this, &QLineEdit::textChanged, this, &hc_hsp_filter_wgt::filterChanged);
+    connect(this, &QLineEdit::textChanged, this, &hsp_filter_wgt::filterChanged);
 
     QMenu *menu = new QMenu(this);
     m_caseSensitivityAction = menu->addAction(tr("Case Sensitive"));
     m_caseSensitivityAction->setCheckable(true);
 
-    connect(m_caseSensitivityAction, &QAction::toggled,
-            this, &hc_hsp_filter_wgt::filterChanged);
+    connect(m_caseSensitivityAction, &QAction::toggled, this, &hsp_filter_wgt::filterChanged);
 
     menu->addSeparator();
     m_patternGroup->setExclusive(true);
@@ -41,7 +38,7 @@ hc_hsp_filter_wgt::hc_hsp_filter_wgt(QWidget *parent)
     patternAction->setData(QVariant(int(FixedString)));
     patternAction->setCheckable(true);
     m_patternGroup->addAction(patternAction);
-    connect(m_patternGroup, &QActionGroup::triggered, this, &hc_hsp_filter_wgt::filterChanged);
+    connect(m_patternGroup, &QActionGroup::triggered, this, &hsp_filter_wgt::filterChanged);
 
     const QIcon icon = QIcon(QPixmap(":/images/find.png"));
     QToolButton *optionsButton = new QToolButton;
@@ -59,27 +56,27 @@ hc_hsp_filter_wgt::hc_hsp_filter_wgt(QWidget *parent)
     addAction(optionsAction, QLineEdit::LeadingPosition);
 }
 
-Qt::CaseSensitivity hc_hsp_filter_wgt::caseSensitivity() const
+Qt::CaseSensitivity hsp_filter_wgt::caseSensitivity() const
 {
     return m_caseSensitivityAction->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
 }
 
-void hc_hsp_filter_wgt::setCaseSensitivity(Qt::CaseSensitivity cs)
+void hsp_filter_wgt::setCaseSensitivity(Qt::CaseSensitivity cs)
 {
     m_caseSensitivityAction->setChecked(cs == Qt::CaseSensitive);
 }
 
-static inline hc_hsp_filter_wgt::PatternSyntax patternSyntaxFromAction(const QAction *a)
+static inline hsp_filter_wgt::PatternSyntax patternSyntaxFromAction(const QAction *a)
 {
-    return static_cast<hc_hsp_filter_wgt::PatternSyntax>(a->data().toInt());
+    return static_cast<hsp_filter_wgt::PatternSyntax>(a->data().toInt());
 }
 
-hc_hsp_filter_wgt::PatternSyntax hc_hsp_filter_wgt::patternSyntax() const
+hsp_filter_wgt::PatternSyntax hsp_filter_wgt::patternSyntax() const
 {
     return patternSyntaxFromAction(m_patternGroup->checkedAction());
 }
 
-void hc_hsp_filter_wgt::setPatternSyntax(PatternSyntax s)
+void hsp_filter_wgt::setPatternSyntax(PatternSyntax s)
 {
     const QList<QAction*> actions = m_patternGroup->actions();
     for (QAction *a : actions) {

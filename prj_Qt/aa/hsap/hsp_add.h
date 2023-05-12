@@ -1,19 +1,18 @@
-#ifndef HC_HSPADD_H
-#define HC_HSPADD_H
+#ifndef hsp_Add_H
+#define hsp_Add_H
 
+#include "hsap/hesapitem.h"
 #include "libs/globals.h"
-#include "hsap/taskitem.h"
 
-class hC_hspAdd : public QMainWindow
+class hsp_Add : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit hC_hspAdd(QWidget *parent = nullptr);
-    ~hC_hspAdd();
-    QWidget *mainwdgt ;
+    explicit hsp_Add(QWidget *parent = nullptr);
+    ~hsp_Add();
+    QWidget *mainwdgt;
 
-
-    TaskItem* yeni() { return yeniItem; };
+    HesapItem *yeni() { return yeniItem; };
 
     QLineEdit* le_ad ;
     QLineEdit* le_acklama ;
@@ -22,7 +21,7 @@ public:
     QComboBox* cb_ustHesap ;
 
 private:
-    TaskItem *yeniItem;
+    HesapItem *yeniItem;
     QString f_ms_hesapAd;
     QString f_ms_hesapAcklm;
     bool    f_mb_topluHesap;
@@ -39,4 +38,4 @@ signals:
 
 };
 
-#endif // HC_HSPADD_H
+#endif // hsp_Add_H

@@ -1,21 +1,22 @@
-#ifndef hsp_Turu_H
-#define hsp_Turu_H
+#ifndef hsp_cb_Turu_H
+#define hsp_cb_Turu_H
 
 #include "libs/globals.h"
 
-class hsp_Turu
+class hsp_cb_Turu
 {
 public:
-    hsp_Turu();
+    hsp_cb_Turu();
+
 public:
-    explicit hsp_Turu(const QString &hs_Tur   = QString(),
-                       const QColor  &hs_Color = QColor(),
-                       const QIcon   &hs_icon  = QIcon(),
-                       const QString &hs_01    = QString(),
-                       const QString &hs_02    = QString(),
-                       const quint64 &hs_T_Kod = 0,
-                      hsp_Turu *parent        = 0 );
-    ~hsp_Turu() { qDeleteAll(lo_children); }
+    explicit hsp_cb_Turu(const QString &hs_Tur = QString(),
+                         const QColor &hs_Color = QColor(),
+                         const QIcon &hs_icon = QIcon(),
+                         const QString &hs_01 = QString(),
+                         const QString &hs_02 = QString(),
+                         const quint64 &hs_T_Kod = 0,
+                         hsp_cb_Turu *parent = 0);
+    ~hsp_cb_Turu() { qDeleteAll(lo_children); }
 
     /// XML:002
     /// getters and setters
@@ -23,7 +24,7 @@ public:
     ///
 
     QString getHs_Tur() const { return mstr_hs_Tur; }
-    void setHs_Tur(const QString &hsp_Turu) { mstr_hs_Tur = hsp_Turu; }
+    void setHs_Tur(const QString &hsp_cb_Turu) { mstr_hs_Tur = hsp_cb_Turu; }
 
     QColor getHs_Color() const { return mcol_hs_Color; }
     void setHs_Color(const QColor &hesapColor) { mcol_hs_Color = hesapColor; }
@@ -40,21 +41,21 @@ public:
     quint64 getHs_T_Kod() const   { return mint_hs_T_Kod; }
     void setHs_T_Kod(const quint64 &hesapTKod)  { mint_hs_T_Kod = hesapTKod; }
 
-    hsp_Turu *parent() const     { return o_parent; }
-    hsp_Turu *childAt(int row) const   { return lo_children.value(row); }
-    int rowOfChild(hsp_Turu *child) const     { return lo_children.indexOf(child); }
+    hsp_cb_Turu *parent() const { return o_parent; }
+    hsp_cb_Turu *childAt(int row) const { return lo_children.value(row); }
+    int rowOfChild(hsp_cb_Turu *child) const { return lo_children.indexOf(child); }
     int childCount() const     { return lo_children.count(); }
     bool hasChildren() const     { return !lo_children.isEmpty(); }
-    QList<hsp_Turu*> children() const     { return lo_children; }
+    QList<hsp_cb_Turu *> children() const { return lo_children; }
 
-    void insertChild(int row, hsp_Turu *item)
+    void insertChild(int row, hsp_cb_Turu *item)
     { item->o_parent = this; lo_children.insert(row, item); }
-    void addChild(hsp_Turu *item)
+    void addChild(hsp_cb_Turu *item)
     { item->o_parent = this; lo_children << item; }
     void swapChildren(int oldRow, int newRow)
     //  qt5      { m_children.swap(oldRow, newRow); }
     { lo_children.swapItemsAt (oldRow, newRow); }
-    hsp_Turu* takeChild(int row);
+    hsp_cb_Turu *takeChild(int row);
 
 private:
     /// XML:001
@@ -70,9 +71,8 @@ private:
     QString mstr_hs_02;
     quint64 mint_hs_T_Kod;
 
-
-    hsp_Turu *o_parent;
-    QList<hsp_Turu*> lo_children;
+    hsp_cb_Turu *o_parent;
+    QList<hsp_cb_Turu *> lo_children;
 };
 
-#endif // hsp_Turu_H
+#endif // hsp_cb_Turu_H

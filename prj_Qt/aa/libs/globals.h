@@ -22,7 +22,6 @@ extern QString GLB_yetki;
 #include "alt_key.h"
 #include "aqp.h"
 
-#include "aqp.h"
 
 #include <QtGlobal>
 #include <qapplication.h>

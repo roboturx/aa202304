@@ -1,23 +1,22 @@
-#ifndef hsp_Main_Tree_H
-#define hsp_Main_Tree_H
+#ifndef hsp_Tree_view_H
+#define hsp_Tree_view_H
 
 //#include "main/cw_dlg_options.h"
-#include "hsap/taskitem.h"
+#include "hsap/hesapitem.h"
 //#include "libs/globals.h"
-#include "hsap/hsp_maintree_xmlmodel.h"
+#include "hsap/hsp_tree_model_xml.h"
 
-
-class hsp_Main_Tree : public QMainWindow
+class hsp_Tree_view : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit hsp_Main_Tree(QWidget * parent=nullptr);
-    ~hsp_Main_Tree();
+    explicit hsp_Tree_view(QWidget *parent = nullptr);
+    ~hsp_Tree_view();
     cm_dlG_cb_hTur *cbdlgt;
 
-    hsp_mainTree_XMLmodel *modelXML;
-    QTreeView *hsp_ViewXML_mainTree;
+    hsp_Tree_model_XML *modelXML;
+    QTreeView *hsp_Tree_ViewXML;
     QWidget * wdgt_central;
     QWidget * wdgt_hesap;
     QLabel * lB_Hesap;
@@ -25,8 +24,7 @@ public:
     QMenu *fileMenu;
     QToolBar *fileToolBar;
 
-    TaskItem *getCurrentItem();
-
+    HesapItem *getCurrentItem();
 
 private:
     void createGui();
@@ -65,7 +63,7 @@ private:
 
 
 signals:
-    void sgnHesap(TaskItem* currentHesapItem);
+    void sgnHesap(HesapItem *currentHesapItem);
 
 public slots:
     void stopTiming();
@@ -187,5 +185,4 @@ public:
     }
 };
 
-
-#endif // hsp_Main_Tree_H
+#endif // hsp_Tree_view_H

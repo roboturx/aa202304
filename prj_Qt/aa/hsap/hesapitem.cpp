@@ -1,5 +1,5 @@
 
-#include "hsap/HesapItem.h"
+#include "hsap/hesapitem.h"
 
 HesapItem::HesapItem(const QString &hesapAd,
                      const QString &hesapAcklm,
