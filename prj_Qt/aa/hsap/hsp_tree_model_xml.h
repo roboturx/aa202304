@@ -97,8 +97,8 @@ public:
     QModelIndex indexForPath(const QStringList &path) const;
 
     // hesapları listeye at
-    void setListXML(HesapItem *newXMLItem);
-    QList<HesapItem *> getListXML() const;
+    void addListXML(HesapItem *newXMLItem);
+    QList<HesapItem *> getListXML();
     QList<HesapItem *> listXML;
 signals:
     void stopTiming();
@@ -106,8 +106,7 @@ signals:
 private:
     HesapItem *itemForIndex(const QModelIndex &index) const;
     void readTasks(QXmlStreamReader *reader, HesapItem *task);
-    void writeTaskAndChildren(QXmlStreamWriter *writer,
-                              HesapItem *task) const;
+    void writeTaskAndChildren(QXmlStreamWriter *writer, HesapItem *task) const;
     void announceItemChanged(HesapItem *item);
     QModelIndex indexForPath(const QModelIndex &parent,
                              const QStringList &path) const;

@@ -1,6 +1,8 @@
 #include "hsap/hc_hdty.h"
 #include "hsap/cm_dlg_cb_htur.h"
 #include "hsap/dlg/dlg_date.h"
+#include "hsap/dlg/dlg_hlist.h"
+#include "hsap/dlg/dlg_r.h"
 
 //#include "uniqueproxymodel.h"
 
@@ -176,10 +178,14 @@ void hC_hDTY::tbkntrl()
     qDebug() << "   0130 hspdty::tbkntrl ---- begin";
 
     dlg_Date *clndr = new dlg_Date;
-    cm_dlG_cb_hTur *cb = new cm_dlG_cb_hTur();
+    dlg_R *cb_R = new dlg_R();
+    dlG_hList *cb_hlist = new dlG_hList();
 
     tb_view->table->setItemDelegateForColumn(2, clndr);
-    tb_view->table->setItemDelegateForColumn(5, cb);
+
+    tb_view->table->setItemDelegateForColumn(5, cb_hlist);
+    tb_view->table->setItemDelegateForColumn(6, cb_R);
+
     //////////////// filtering
     proxyModel1 = new hc_hDty_PRXYModel  (this);
     // setting proxymodel1 to view

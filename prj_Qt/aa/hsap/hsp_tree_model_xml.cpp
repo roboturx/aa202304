@@ -409,18 +409,7 @@ void hsp_Tree_model_XML::announceItemChanged(HesapItem *item)
 ///
 void hsp_Tree_model_XML::readTasks(QXmlStreamReader *reader, HesapItem *task)
 {
-   // qDebug()<<"::Xmdl readtasks";
-    //cB_hesapAds = new QComboBox{} ;
-   // hesapListesi = new cls_Hesaplar;
-   // QMap<QString, quint64> mapXML;
- //   listXML = new QList<QString,QString>;
-
-    //mapXML = new QMap<QString, quint64>;
-
-  //  pi_max_Hesap_ID = new quint64{};
-   // *pi_max_Hesap_ID = 0;
-    while (!reader->atEnd())
-    {
+    while (!reader->atEnd()) {
         reader->readNext();
         /// İLK kayıt mı
         if (reader->isStartElement())
@@ -458,7 +447,7 @@ void hsp_Tree_model_XML::readTasks(QXmlStreamReader *reader, HesapItem *task)
 
                 //// item ı listeye ekle
                 ///  hspdetay transfer hesaplarda kullanılacak liste
-                listXML<<task;
+                addListXML(task);
             }
             // NZAMAN lar
             else if (reader->name() == NeZamanTag) {
@@ -548,8 +537,10 @@ void hsp_Tree_model_XML::writeTaskAndChildren(QXmlStreamWriter *writer, HesapIte
             writer->writeEndElement(); // WHEN
         }
     }
-    foreach (HesapItem *child, task->children())
+
+    foreach (HesapItem *child, task->children()) {
         writeTaskAndChildren(writer, child);
+    }
     if (task != rootItem)
         writer->writeEndElement(); // TASK
 }
@@ -727,14 +718,21 @@ void hsp_Tree_model_XML::hTurColor(QColor color)
     qDebug()<<"------------htur siggggggnaaaaaaaaaaaal    " << color;
 }
 
-QList<HesapItem *> hsp_Tree_model_XML::getListXML() const
+QList<HesapItem *> hsp_Tree_model_XML::getListXML()
 {
     return listXML;
 }
 
-void hsp_Tree_model_XML::setListXML(HesapItem *newXMLItem)
+void hsp_Tree_model_XML::addListXML(HesapItem *newXMLItem)
 {
+    qDebug() << "listeye eklenen yeni hesap kod " << newXMLItem->hesapKod();
     listXML << newXMLItem;
+    qDebug() << "***************** size *********************** " << listXML.size();
+
+    //   foreach (const HesapItem *it, newXMLItem)
+    // {
+    //   qDebug() << it->hesapKod();
+    //}
 }
 
 QModelIndex hsp_Tree_model_XML::moveDown(const QModelIndex &index)

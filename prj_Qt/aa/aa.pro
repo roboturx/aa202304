@@ -228,10 +228,14 @@ DISTFILES += \ libs/mime.types
 
 HEADERS += \
     hsap/dlg/dlg_date.h \
+    hsap/dlg/dlg_hlist.h \
+    hsap/dlg/dlg_r.h \
     hsap/hsp_list.h
 
 SOURCES += \
     hsap/dlg/dlg_date.cpp \
+    hsap/dlg/dlg_hlist.cpp \
+    hsap/dlg/dlg_r.cpp \
     hsap/hsp_list.cpp
 
 
