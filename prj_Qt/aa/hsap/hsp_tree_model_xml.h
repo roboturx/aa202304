@@ -31,11 +31,6 @@ public:
     }
 
     quint64* pi_max_Hesap_ID; // for XML file rowid
-    QComboBox* cB_hesapAds;   // for hesap ad
-    cls_Hesaplar* hesapListesi;
-
-
-
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant data(const QModelIndex &index,
@@ -117,6 +112,8 @@ private:
     HesapItem *timedItem;
     HesapItem *rootItem;
     HesapItem *cutItem;
+
+    bool updateXMLHesapAd(HesapItem *item, QVariant &value);
 
 public slots:
     void hTurColor(QColor color);

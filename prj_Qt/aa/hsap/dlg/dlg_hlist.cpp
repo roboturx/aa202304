@@ -12,12 +12,14 @@ QWidget *dlG_hList::createEditor(QWidget *parent,
                                  const QStyleOptionViewItem &option,
                                  const QModelIndex &index) const
 {
+    qDebug() << "---dlg_hlist::create editor";
     QComboBox *cb_hspList = new QComboBox(parent);
 
-    hsp_Tree_model_XML modelXML;
+    hsp_Tree_model_XML *modelXML = new hsp_Tree_model_XML;
     QList<HesapItem *> hesapItems;
-    modelXML.save("yedekkk");
-    hesapItems = modelXML.getListXML();
+    modelXML->load("aaa.knm");
+    modelXML->save("yedekkk");
+    hesapItems = modelXML->getListXML();
     qDebug() << "----------------- size before------" << hesapItems.size();
 
     for (auto i = hesapItems.begin(), end = hesapItems.end(); i != end; ++i)
