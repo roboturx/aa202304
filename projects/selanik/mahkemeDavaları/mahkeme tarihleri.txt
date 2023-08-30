@@ -1,0 +1,21 @@
+
+Duruşma Tarihi	dosya no-avukat		davalı		miktar		mahkeme			durum
+icra dosyaları	
+		2015/10771--sağır	izzet erdemir	
+		2018/133300-emrullah	birleşim	 -14				itiraz edilmiş
+		2018/133301-emrullah	birleşim	 -18				itiraz edilmiş
+		2019/7514-emrullah	aliye al	 313		18-08-23	icra hukuk mahk. satış sorulmuş
+		2019/6230-emrullah	ferhat bülbül			01-08-23	haciz başlatılmış
+		2019/19245-emrullah	kubilay perçin	   2		05-07-23	5300 TL para yatmış	
+		2020/16055-		tokat belediyesi  -6				belediye masrafı yatırmamış		
+		2022/15561-emrullah	elmalı taş	 380				takipte	
+		2023/13337-emrullah	adem kesici	 119				itirazın kaldırılması istenecek
+		2022/12820-emrullah	murat karaboyun	3400				takipte	
+		2019/38044-çırdaklı	murat karagülle    9				takipte
+13-10-2023	2022/7795 -doğanöz	heltas	 	 102		icra hukuk	itirazın kaldırılması davası
+
+ceza dosyaları	
+14-09-2023	2023/423-emrullah	irfan bacak			14-09-23 9:25	tokat 4.asliye ceza mahkemesi duruşma
+12-10-2023	2022/739-		orman işletme			12-10-23 10:05	3. asliye ceza
+
+
