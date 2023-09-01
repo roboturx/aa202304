@@ -17,7 +17,8 @@ Duruşma Tarihi	dosya no-avukat		davalı		miktar	son-işlem tarihi-mahkeme-durum
 18-09-2023	2023/13337-emrullah	adem kesici	 119	
 		17-08-23 tahliye talepli icra örnek 13 30 gün süre verilerek yollandı
 		24-08-23 borca zamanında (7 gün içinde) ZAMANAŞIMI diye itiraz etti (GEÇERSİZ İTİRAZ)
-		18-09-23 verilen 30 günlük süre geçtikten sonra Adem Bey temerrüde düşecek; icra hukuk mahkemesinden 				 itirazın kaldırılması ve tahliye istenecek
+		18-09-23 verilen 30 günlük süre geçtikten sonra Adem Bey temerrüde düşecek; icra hukuk mahkemesinden 
+		itirazın kaldırılması ve tahliye istenecek
 		sonuç:   Kira sözleşmesine açıkça itiraz etmediği için borcu kabul etmiş sayılır. 
 			 Zaman aşımı kira sözleşmelerinde 5 yıldır. 
 			 icra hukuk mahkemesi itirazı kaldırır, 
@@ -26,6 +27,9 @@ Duruşma Tarihi	dosya no-avukat		davalı		miktar	son-işlem tarihi-mahkeme-durum
 			 tahliyeyi kendi yapar veya zorla gerçekleştirilir, 
 
 12-10-2023	2022/739-		orman işletme		12-10-23 10:05 3. asliye ceza duruşma
+
+
+28-09-2023	2022/209 -doğanöz	heltaş		istinaftan döndü 28-09-23 icra hukuk mahkemesi
 
 13-10-2023	2022/7795 -doğanöz	heltas	 	 102	
 		14-06-23 ?? tahliye talepSİZ ?? icra ödeem emri örnek 13 30 gün süre verilerek yollandı
